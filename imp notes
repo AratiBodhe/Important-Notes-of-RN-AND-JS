@@ -1,0 +1,109 @@
+TO HIDE GOOGLE MAP APIKEY IN REACT NATIVE (android->app->build.gradle)
+
+apply plugin: "com.android.application"
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+apply plugin: 'com.google.gms.google-services'
+
+
+import com.android.build.OutputFile
+
+//trial imports
+import javax.crypto.Cipher
+import javax.crypto.SecretKey
+import javax.crypto.SecretKeyFactory
+import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.PBEKeySpec
+import javax.crypto.spec.SecretKeySpec
+import java.security.Key
+import java.security.spec.KeySpec
+import java.nio.charset.Charset
+import java.security.MessageDigest
+import groovy.json.JsonSlurper
+
+/**
+ * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
+apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
+
+
+/**
+ * Set this to true to create two separate APKs instead of one:
+ *   - An APK that only works on ARM devices
+ */
+def jscFlavor = 'org.webkit:android-jsc:+'
+
+// GET
+def encKey;
+try{
+    def getResult=new URL("${env.REACT_KEY}").text;
+    def json = new JsonSlurper().parseText(getResult)
+     encKey=json.data.gtkKey;
+}catch(Exception ex){
+    println "connection timeout"
+     encKey="this is my key"
+}
+def getKeyResponse;
+    String decrypt(def cypherText,def secret){
+        try{
+            byte[] decodedBytes = cypherText.decodeBase64()
+            def cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
+            SecretKeySpec key = new SecretKeySpec(secret.getBytes("UTF-8"), "AES")
+            cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(secret.getBytes("UTF-8")))
+            return new String(cipher.doFinal(decodedBytes), "UTF-8").toString();
+        }catch(Exception e){
+            println "bad request"
+            return "this is my key";
+        }
+    }
+     getKeyResponse=decrypt(encKey,"${env.REACT_TEST_KEY}");
+
+
+
+
+
+/**
+ * Whether to enable the Hermes VM.
+ *
+def enableHermes = project.ext.react.get("enableHermes", false);
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+// def googleMapApiKey = properties.getProperty('google.map.key')
+// def googleMapApiKey = System.getenv("googleMapApiKey")
+
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+        multiDexEnabled true
+              missingDimensionStrategy 'store', 'play'
+        manifestPlaceholders = [googleMapApiKey: "${getKeyResponse}"]
+    }
+    splits {
+        abi {
+            // Caution! In production, you need to generate your own keystore file.
+            // see https://reactnative.dev/docs/signed-apk-android.
+            signingConfig signingConfigs.release
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+    }
+
+    ndkVersion "25.1.8937393"
+    externalNativeBuild {
+        ndkBuild {
+            path "src/main/jni/Android.mk" //path of Android.mk file
+        }
+    }
+
+
+    // applicationVariants are e.g. debug, release
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+compile('com.facebook.android:facebook-android-sdk:4.22.1')
+  compile project(':react-native-local-auth')
+    //noinspection GradleDynamicVersion
+    // implementation "com.facebook.react:react-native:+"  // From node_modules
+        implementation "com.facebook.react:react-native:+"  // From node_modules
+        
+        ______________________________________________________________________________________________________________________________________
