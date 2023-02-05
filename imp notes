@@ -107,3 +107,31 @@ compile('com.facebook.android:facebook-android-sdk:4.22.1')
         implementation "com.facebook.react:react-native:+"  // From node_modules
         
         ______________________________________________________________________________________________________________________________________
+        
+        
+        
+        FOR FIREBASE ERROR IN IOS
+        [!] The 'Pods-Amazonclone' target has transitive dependencies that include statically linked binaries: (Flipper-Boost-iOSX and Flipper-RSocket)
+        
+        Add below line of code
+        
+         $static_framework = ['FlipperKit', 'Flipper', 'Flipper-Folly',
+     'CocoaAsyncSocket', 'ComponentKit', 'DoubleConversion',
+     'glog', 'Flipper-PeerTalk', 'Flipper-RSocket', 'Yoga', 'YogaKit',
+     'CocoaLibEvent', 'OpenSSL-Universal', 'boost-for-react-native']
+  
+   pre_install do |installer|
+     Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
+     installer.pod_targets.each do |pod|
+         if $static_framework.include?(pod.name)
+           def pod.build_type;
+             Pod::Target::BuildType.static_library
+           end
+         end
+       end
+  end
+  
+  =======================================================================================================================================
+        
+        
+        
