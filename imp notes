@@ -133,5 +133,13 @@ compile('com.facebook.android:facebook-android-sdk:4.22.1')
   
   =======================================================================================================================================
         
+        after nvm install in system . ERROR: zsh:nvm command not found
         
+      for the above error add the below line of code
+      # NVM Akash Stuff
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"
+
+then source ~/.zshrc
+================================================================================================================================================
         
