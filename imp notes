@@ -143,3 +143,7 @@ export NVM_DIR="$HOME/.nvm"
 then source ~/.zshrc
 ================================================================================================================================================
         
+  use_modular_headers!
+  pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec', :modular_headers => false
+  pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec', :modular_headers => false
+  
