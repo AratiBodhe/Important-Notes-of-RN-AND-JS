@@ -146,4 +146,18 @@ then source ~/.zshrc
   use_modular_headers!
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec', :modular_headers => false
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec', :modular_headers => false
-  
+
+============================================================================================================
+How to create IOS build for testflight
+
+1. double click on provision certificate                                                   
+2.double click on keychain (add password) reopen the xcode (if it does not work then click on automatic )
+3.upgrade the version (go to general->identity->version)
+4.go to buildSetting->signing-> change developer to ios distribution
+5. create bundle using cmd npm run build:ios
+6.pod install
+7.archive
+8.sellect appstore or testflight
+9.export
+
+===========================================================================================================================================
