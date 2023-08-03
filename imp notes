@@ -161,3 +161,11 @@ How to create IOS build for testflight
 9.export
 
 ===========================================================================================================================================
+
+To generate the hashcode for autoread otp in playstore app
+ Ref:
+    https://prishanmaduka.medium.com/generate-hash-keys-properly-for-android-sms-retriever-api-c26b9be42ddc
+
+If the given cmd does not work in mac then use below cmd
+  keytool -exportcert -alias my-upload-key-alias -keystore certificate.jks | xxd -p | tr -d "[:space:]" | xargs echo -n com.myapp | shasum -a 256 | tr -d "[:space:]-" | xxd -r -p | base64 | cut -c1-11
+===============================================================================================================================================
